@@ -11,10 +11,13 @@ const imageTitle = document.getElementById('image-title');
 const imageDate = document.getElementById('image-date');
 const imageDescription = document.getElementById('image-description');
 
-// Set max date to today
-const today = new Date().toISOString().split('T')[0];
-datePicker.setAttribute('max', today);
-datePicker.value = today;
+// Set date range: September 1995 to October 1, 2025
+const minDate = '1995-09-01';
+const maxDate = '2025-10-01';
+
+datePicker.setAttribute('min', minDate);
+datePicker.setAttribute('max', maxDate);
+datePicker.value = maxDate; // Default to Oct 1, 2025
 
 // Fetch APOD data
 async function fetchAPOD(date) {
@@ -65,5 +68,4 @@ exploreBtn.addEventListener('click', () => {
   }
 });
 
-// Optional: Load today's APOD on page load
-// fetchAPOD(today);
+
