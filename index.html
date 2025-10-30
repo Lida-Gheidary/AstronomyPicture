@@ -1,0 +1,58 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Astronomy Picture of the Day</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Explore NASA's Astronomy Picture of the Day">
+
+  <meta property="og:title" content="Astronomy Picture of the Day">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="NASA APOD">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+  <h1 class="main-title">Pick a Date, Fetch an Image From NASA's Archive</h1>
+
+  <div class="controls">
+    <input type="date" id="date-picker" class="date-input">
+    <button id="explore-btn" class="explore-button">Explore</button>
+  </div>
+
+  <div id="result-container" class="result-container hidden">
+    <div class="image-section">
+      <img id="apod-image" src="" alt="Astronomy Picture">
+    </div>
+    <div class="description-section">
+      <h2 id="image-title"></h2>
+      <p id="image-date"></p>
+      <p id="image-description"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Load config before app.js -->
+<script src="config.js"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>
