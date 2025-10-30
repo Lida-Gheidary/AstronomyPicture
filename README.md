@@ -23,7 +23,7 @@ CSS loads first (in <head>) so the page looks good right away. JavaScript loads 
 4. The API returns JSON data containing the image URL, title, date, and description
 5. JavaScript updates the page by:
    - Setting the image source to the API's image URL
-   - Displaying the title in an <h2> element
+   - Displaying the title in an < h2 > element
    - Showing the date in a < p > element
    - Adding the full explanation text in another <p> element
    - Removing the hidden class from the result container to make it visible
