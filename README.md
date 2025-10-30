@@ -17,18 +17,16 @@ CSS loads first (in <head>) so the page looks good right away. JavaScript loads 
 
 ## What happens when you click?
 
-1.	The Explore button click triggers a function in app.js
-2.	JavaScript gets the selected date from the date picker
-3.	It uses fetch() to call NASA's APOD API: https://api.nasa.gov/planetary/apod?api_key=YOUR_KEY&date=SELECTED_DATE
-4.	The API returns JSON data containing the image URL, title, date, and description
-5.	JavaScript updates the page by:
-•	Setting the image source to the API's image URL
-•	Displaying the title in an < h2 > element
-•	Showing the date in a < p > element
-•	Adding the full explanation text in another < p > element
-•	Removing the hidden class from the result container to make it visible
-
-
+1. The Explore button click triggers a function in app.js
+2. JavaScript gets the selected date from the date picker
+3. It uses fetch() to call NASA's APOD API: https://api.nasa.gov/planetary/apod?api_key=YOUR_KEY&date=SELECTED_DATE
+4. The API returns JSON data containing the image URL, title, date, and description
+5. JavaScript updates the page by:
+   - Setting the image source to the API's image URL
+   - Displaying the title in an <h2> element
+   - Showing the date in a <p> element
+   - Adding the full explanation text in another <p> element
+   - Removing the hidden class from the result container to make it visible
 
 The grid layout automatically positions the image on the left and description on the right. When you hover over the image, it smoothly zooms to 1.5x size for better viewing.
 
@@ -53,4 +51,3 @@ The grid layout automatically positions the image on the left and description on
 - ✅ Interactive controls (date picker and button)
 - ✅ Displays results dynamically without page reload
 - ✅ Professional design with animations and hover effects
-
