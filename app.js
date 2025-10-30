@@ -1,5 +1,5 @@
 // NASA APOD API Configuration
-const API_KEY = CONFIG.NASA_API_KEY;
+const API_KEY = 'YOUR_ACTUAL_API_KEY_HERE'; // Replace with your actual key
 const API_URL = 'https://api.nasa.gov/planetary/apod';
 
 // Get DOM elements
@@ -12,12 +12,9 @@ const imageDate = document.getElementById('image-date');
 const imageDescription = document.getElementById('image-description');
 
 // Set date range: September 1995 to October 1, 2025
-const minDate = '1995-09-01';
-const maxDate = '2025-10-01';
-
-datePicker.setAttribute('min', minDate);
-datePicker.setAttribute('max', maxDate);
-datePicker.value = maxDate; // Default to Oct 1, 2025
+datePicker.min = '1995-09-01';
+datePicker.max = '2025-10-01';
+datePicker.value = '2025-10-01';
 
 // Fetch APOD data
 async function fetchAPOD(date) {
@@ -48,7 +45,6 @@ function displayAPOD(data) {
     apodImage.alt = data.title;
     apodImage.style.display = 'block';
   } else {
-    // If it's a video, you might want to handle it differently
     apodImage.src = data.url;
     apodImage.alt = data.title;
   }
@@ -67,5 +63,3 @@ exploreBtn.addEventListener('click', () => {
     alert('Please select a date');
   }
 });
-
-
