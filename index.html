@@ -6,47 +6,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Astronomy Picture of the Day</title>
   <link rel="stylesheet" href="style.css">
-  <meta name="description" content="Explore NASA's Astronomy Picture of the Day">
+  <meta name="description" content="Pick any date since 1995 and see the image NASA published that day.">
 
   <meta property="og:title" content="Astronomy Picture of the Day">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="NASA APOD">
+  <meta property="og:url" content="https://lida-gheidary.github.io/AstronomyPicture/">
+  <meta property="og:description" content="Pick any date since 1995 and see the image NASA published that day.">
+  <meta property="og:image:alt" content="NASA Astronomy Picture of the Day">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
 
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+  <meta name="theme-color" content="#080d1f">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="container">
-  <h1 class="main-title">Pick a Date, Fetch an Image From NASA's Archive</h1>
+<div class="layout">
 
-  <div class="controls">
-    <input type="date" id="date-picker" class="date-input">
-    <button id="explore-btn" class="explore-button">Explore</button>
-  </div>
+  <aside class="panel">
+    <h1 class="main-title">Pick a Date, Fetch an Image From NASA's Archive</h1>
 
-  <div id="result-container" class="result-container hidden">
-    <div class="image-section">
-      <img id="apod-image" src="" alt="Astronomy Picture">
+    <div class="controls">
+      <label for="date-picker" class="visually-hidden">Choose a date</label>
+      <input type="date" id="date-picker" class="date-input">
+      <button id="explore-btn" class="explore-button" type="button">Explore</button>
     </div>
-    <div class="description-section">
-      <h2 id="image-title"></h2>
-      <p id="image-date"></p>
-      <p id="image-description"></p>
+
+    <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+
+    <p class="panel-note">NASA has published one picture of the universe every day since 16 June 1995.</p>
+  </aside>
+
+  <main class="stage">
+    <div id="result-container" class="result-container hidden">
+
+      <div class="image-section">
+        <div class="image-frame" id="image-frame">
+          <img id="apod-image" src="" alt="" tabindex="0" role="button">
+          <iframe id="apod-video" class="apod-video" title="Astronomy video of the day" allowfullscreen hidden></iframe>
+          <span class="expand-hint" id="expand-hint">Click to expand</span>
+        <button id="scroll-cue" class="scroll-cue" type="button" hidden
+                aria-label="Scroll to the description">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4"
+                  stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        </div>
+      </div>
+
+      <div class="description-section">
+        <h2 id="image-title"></h2>
+        <p id="image-date"></p>
+        <p id="image-description"></p>
+      </div>
+
     </div>
-  </div>
+  </main>
+
 </div>
 
 <!-- Load config before app.js -->
