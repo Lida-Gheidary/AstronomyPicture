@@ -1,6 +1,5 @@
 // NASA APOD
-// Nothing above this line. If the first line of this file is not the comment
-// above, delete whatever is there.
+
 
 const API_URL = 'https://api.nasa.gov/planetary/apod';
 const FIRST_APOD = '1995-06-16';
@@ -19,8 +18,7 @@ const imageDescription = document.getElementById('image-description');
 const statusMessage = document.getElementById('status-message');
 const scrollCue = document.getElementById('scroll-cue');
 
-// The key lives in config.js. If that file is missing or misnamed, say so
-// plainly instead of dying with a ReferenceError.
+// The key lives in config.js. 
 const API_KEY =
   typeof CONFIG !== 'undefined' && CONFIG.NASA_API_KEY ? CONFIG.NASA_API_KEY : null;
 
@@ -155,8 +153,6 @@ datePicker.addEventListener('keydown', (event) => {
 
 /* ------------------------------------------------------------------
    Scroll cue
-   Visible whenever a picture is on the page, so the text below the
-   image is never missed.
    ------------------------------------------------------------------ */
 
 if (scrollCue) {
