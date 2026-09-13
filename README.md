@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 922d3d494c58299157de9c20bff7dde1ab22b320
 # End Project – Astronomy Picture of the Day
 
 A simple interactive web page that displays NASA's Astronomy Picture of the Day. Users can select any date and explore stunning space images with detailed descriptions from NASA's archive.
@@ -22,11 +26,19 @@ CSS loads first (in <head>) so the page looks good right away. JavaScript loads 
 3. It uses fetch() to call NASA's APOD API: https://api.nasa.gov/planetary/apod?api_key=YOUR_KEY&date=SELECTED_DATE
 4. The API returns JSON data containing the image URL, title, date, and description
 5. JavaScript updates the page by:
+<<<<<<< HEAD
   - Setting the image source to the API's image URL
   - Displaying the title in an <h2> element
   - Showing the date in a <p> element
   - Adding the full explanation text in another <p> element
   - Removing the hidden class from the result container to make it visible
+=======
+   - Setting the image source to the API's image URL
+   - Displaying the title in an < h2> element
+   - Showing the date in a < p> element
+   - Adding the full explanation text in another < p> element
+   - Removing the hidden class from the result container to make it visible
+>>>>>>> 922d3d494c58299157de9c20bff7dde1ab22b320
 
 The grid layout automatically positions the image on the left and description on the right. When you hover over the image, it smoothly zooms to 1.5x size for better viewing.
 
@@ -43,4 +55,15 @@ The grid layout automatically positions the image on the left and description on
 3. Click the "Explore" button
 4. See the astronomy picture appear with its description
 
+<<<<<<< HEAD
 
+=======
+## Project Requirements Met
+
+- ✅ Fetches data from NASA's public API using fetch()
+- ✅ Semantic HTML structure with proper elements
+- ✅ Responsive CSS layout using Grid and Flexbox
+- ✅ Interactive controls (date picker and button)
+- ✅ Displays results dynamically without page reload
+- ✅ Professional design with animations and hover effects
+>>>>>>> 922d3d494c58299157de9c20bff7dde1ab22b320

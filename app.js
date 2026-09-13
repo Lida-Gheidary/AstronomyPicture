@@ -1,7 +1,7 @@
 // NASA APOD
 
 
-const API_URL = 'https://api.nasa.gov/planetary/apod';
+const BASE = 'https://science.nasa.gov/wp-json/wp/v2/image-article';
 const FIRST_APOD = '1995-06-16';
 
 // DOM
@@ -18,9 +18,7 @@ const imageDescription = document.getElementById('image-description');
 const statusMessage = document.getElementById('status-message');
 const scrollCue = document.getElementById('scroll-cue');
 
-// The key lives in config.js. 
-const API_KEY =
-  typeof CONFIG !== 'undefined' && CONFIG.NASA_API_KEY ? CONFIG.NASA_API_KEY : null;
+
 
 /* ------------------------------------------------------------------
    Dates
@@ -50,33 +48,93 @@ function setBusy(isBusy) {
    Fetch
    ------------------------------------------------------------------ */
 
-async function fetchAPOD(date) {
-  if (!API_KEY) {
-    setStatus('No API key found. Check that config.js loads before app.js.', true);
-    return;
+function decodeHtml(s) {
+  const el = document.createElement('textarea');
+  el.innerHTML = s;
+  return el.value;
+}
+
+function htmlToText(html) {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return doc.body.textContent.replace(/\s+/g, ' ').trim();
+}
+
+function extractExplanation(html) {
+  const text = htmlToText(html);
+
+  // The caption always begins after "Explanation:".
+  const start = text.indexOf('Explanation:');
+  let body = start === -1 ? text : text.slice(start + 'Explanation:'.length);
+
+  // Trailing site furniture: "Tomorrow's picture", credits, APOD footer.
+  const end = body.search(/Tomorrow'?s picture|Authors? & editors|APOD is featured|Image Credit/i);
+  if (end > 0) body = body.slice(0, end);
+
+  return body.trim();
+}
+
+// Function
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+
+async function fetchFromApi(date) {
+  const [y, m, d] = date.split('-').map(Number);
+  const query = `APOD ${y} ${MONTHS[m - 1]} ${d}`;
+
+  const matches = (p) => {
+    const parts = /^APOD:\s*(\d{4})\s+([A-Za-z]+)\s+(\d{1,2})/.exec(decodeHtml(p.title.rendered));
+    return parts
+      && Number(parts[1]) === y
+      && MONTHS.indexOf(parts[2]) === m - 1
+      && Number(parts[3]) === d;
+  };
+
+  let post = null;
+
+  for (let page = 1; page <= 5 && !post; page++) {
+    const res = await fetch(`${BASE}?search=${encodeURIComponent(query)}&per_page=100&page=${page}`);
+
+    if (res.status === 400) break;   // ran past the last page
+    if (!res.ok) throw new Error('NASA returned an error. Try again in a moment.');
+
+    const posts = await res.json();
+    if (!posts.length) break;
+
+    post = posts.find(matches) || null;
   }
 
+  if (!post) {
+    throw new Error('Nothing was published on that date. Try the day before.');
+  }
+
+  if (!post) {
+    throw new Error('Nothing was published on that date. Try the day before.');
+  }
+
+  const title = decodeHtml(post.title.rendered)
+    .replace(/^APOD:\s*\d{4}\s+\S+\s+\d{1,2}\s*[–—-]\s*/, '')
+    .trim();
+
+  const body = new DOMParser().parseFromString(post.content.rendered, 'text/html');
+  const iframe = body.querySelector('iframe');
+
+  return {
+    title,
+    date,                                    // trust the requested date, not post.date
+    explanation: extractExplanation(post.content.rendered),
+    media_type: iframe ? 'video' : 'image',
+    url: iframe ? iframe.src : post.featured_image_url,
+    hdurl: post.source_asset_url || null
+  };
+}
+
+// UI wrapper. 
+async function fetchAPOD(date) {
   setBusy(true);
   setStatus('Fetching that day from NASA\u2026');
 
   try {
-    const response = await fetch(`${API_URL}?api_key=${API_KEY}&date=${date}`);
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error('Nothing was published on that date. Try the day before.');
-      }
-      if (response.status === 429 || response.status === 403) {
-        throw new Error('Too many requests for this key. Wait an hour, or use your own NASA key.');
-      }
-      if (response.status === 400) {
-        throw new Error('That date is outside the archive. Pick a day from 16 June 1995 onwards.');
-      }
-      throw new Error('NASA returned an error. Try again in a moment.');
-    }
-
-    const data = await response.json();
-    displayAPOD(data);
+    displayAPOD(await fetchFromApi(date));
     setStatus('');
   } catch (error) {
     console.error('Error fetching APOD:', error);
