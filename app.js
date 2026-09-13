@@ -107,10 +107,6 @@ async function fetchFromApi(date) {
     throw new Error('Nothing was published on that date. Try the day before.');
   }
 
-  if (!post) {
-    throw new Error('Nothing was published on that date. Try the day before.');
-  }
-
   const title = decodeHtml(post.title.rendered)
     .replace(/^APOD:\s*\d{4}\s+\S+\s+\d{1,2}\s*[–—-]\s*/, '')
     .trim();
